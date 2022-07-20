@@ -1,0 +1,57 @@
+<div class="backdrop"></div>
+<header class="main-header">
+    <button id="side-menu-toggle">Menu</button>
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/timesheet">Quản lý giờ làm</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/info' ? 'active' : '' %>" href="/profile/info">Thông tin cá nhân</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/timelist' ? 'active' : '' %>" href="/timelist">Thông tin giờ làm</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/covid' ? 'active' : '' %>" href="/covid">Thông tin Covid</a>
+            </li>
+            <%if(role==="Admin"){%>
+                <li class="main-header__item">
+                    <a class="<%= path === '/confirm' ? 'active' : '' %>" href="/confirmTimesheet">Xác nhận giờ làm</a>
+                </li>
+                <%}%>
+        </ul>
+    </nav>
+
+    <%if(name){%>
+        <div class="logout-section">
+            <div>
+                <%= name%>
+            </div>
+            <form action="/" method="POST">
+                <div class="search">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken%>">
+                    <button class="logout">Đăng xuất</button>
+                </div>
+            </form>
+        </div>
+        <%}%>
+
+</header>
+
+<nav class="mobile-nav">
+    <ul class="mobile-nav__item-list">
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/timesheet">Quản lý giờ làm</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/info' ? 'active' : '' %>" href="/profile/info">Thông tin cá nhân</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/timelist' ? 'active' : '' %>" href="/timelist">Thông tin giờ làm</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/covid' ? 'active' : '' %>" href="/covid">Thông tin Covid</a>
+        </li>
+    </ul>
+</nav>
