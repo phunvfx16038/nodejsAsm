@@ -85,7 +85,7 @@ app.use((req, res, next) => {
   res.locals.csrfToken = req.csrfToken();
   next();
 });
-
+const PORT = process.env.PORT || 3000;
 // app.use(staffRoutes);
 app.use("/timesheet", timesheetRoute);
 app.use("/profile", profileRoute);
@@ -97,6 +97,6 @@ app.use(errorController.get404);
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
-    app.listen(3000);
+    app.listen(PORT);
   })
   .catch((err) => console.log(err));
