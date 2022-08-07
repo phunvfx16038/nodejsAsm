@@ -8,35 +8,36 @@
             <div class="container">
                 <%if(checkout){%>
                     <h2>Danh sách các lượt đăng ký làm </h2>
-                    <table>
-                        <tr>
-                            <td>STT</td>
-                            <td>Thời gian bắt đầu</td>
-                            <td>Thời gian kết thúc</td>
-                            <td>Nơi làm việc</td>
-                            <td>Số giờ đã làm</td>
-                        </tr>
-                        <% lists.forEach(function(list,index){ %>
+                    <div style="overflow-x:auto;">
+                        <table>
                             <tr>
-                                <td>
-                                    <%= index + 1%>
-                                </td>
-                                <td>
-                                    <%= list.startWork%>
-                                </td>
-                                <td>
-                                    <%= list.endWork%>
-                                </td>
-                                <td>
-                                    <%= list.workPlace %>
-                                </td>
-                                <td class="time">
-                                    <%= covertTimeFunction(list.workTime) %>
-                                </td>
+                                <td>STT</td>
+                                <td>Thời gian bắt đầu</td>
+                                <td>Thời gian kết thúc</td>
+                                <td>Nơi làm việc</td>
+                                <td>Số giờ đã làm</td>
                             </tr>
-                            <% }); %>
-                    </table>
-
+                            <% lists.forEach(function(list,index){ %>
+                                <tr>
+                                    <td>
+                                        <%= index + 1%>
+                                    </td>
+                                    <td>
+                                        <%= list.startWork%>
+                                    </td>
+                                    <td>
+                                        <%= list.endWork%>
+                                    </td>
+                                    <td>
+                                        <%= list.workPlace %>
+                                    </td>
+                                    <td class="time">
+                                        <%= covertTimeFunction(list.workTime) %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </table>
+                    </div>
                     <p>Tổng thời gian làm việc: <%=covertTimeFunction(totalWorkedTime)%>
                     </p>
                     <%}else{%>

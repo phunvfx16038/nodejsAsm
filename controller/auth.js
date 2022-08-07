@@ -4,14 +4,13 @@ const { validationResult } = require("express-validator");
 const { mongoose } = require("mongoose");
 
 exports.getLogin = (req, res, next) => {
-  const errors = validationResult(req);
-
   let message = req.flash("error");
   if (message.length > 0) {
     message = message[0];
   } else {
     message = null;
   }
+
   res.render("auth/login", {
     pageTitle: "Đăng nhập",
     isAuthenticated: false,
@@ -42,7 +41,6 @@ exports.postLogin = (req, res, next) => {
             req.session.isLoggin = true;
             req.session.staff = staff;
             return req.session.save((err) => {
-              console.log(err);
               res.redirect("/timesheet");
             });
           }
@@ -57,8 +55,34 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.getRegister = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+
   res.render("auth/register", {
     pageTitle: "Đăng ký",
+    emailError: "",
+    nameError: "",
+    passwordError: "",
+    doBlError: "",
+    salaryScaleError: "",
+    startDateError: "",
+    departmentError: "",
+    imageError: "",
+    managerEmailError: "",
+    oldInput: {
+      email: "",
+      name: "",
+      password: "",
+      doB: "",
+      salaryScale: "",
+      startDate: "",
+      department: "",
+      managerEmail: "",
+    },
   });
 };
 
@@ -73,6 +97,62 @@ exports.postRegister = (req, res, next) => {
   const image = req.file;
   const managerEmail = req.body.managerEmail;
   const role = req.body.role;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const errorArray = (param) => {
+      const result = errors.array().filter((error) => {
+        return error.param === param;
+      });
+      return result;
+    };
+
+    const showErrorMsg = (param) => {
+      let message = "";
+      const errorArr = errorArray(param);
+      if (errorArr.length > 0) {
+        message = errorArr[0].msg;
+      }
+      return message;
+    };
+
+    const emailError = showErrorMsg("email");
+    const nameError = showErrorMsg("name");
+    const passwordError = showErrorMsg("password");
+    const doBlError = showErrorMsg("doB");
+    const salaryScaleError = showErrorMsg("salaryScale");
+    const startDateError = showErrorMsg("startDate");
+    const departmentError = showErrorMsg("department");
+    const imageError = showErrorMsg("image");
+    const managerEmailError = showErrorMsg("managerEmail");
+
+    return res.status(422).render("auth/register", {
+      path: "/register",
+      pageTitle: "Đăng ký",
+      emailError: emailError,
+      nameError: nameError,
+      passwordError: passwordError,
+      doBlError: doBlError,
+      salaryScaleError: salaryScaleError,
+      startDateError: startDateError,
+      departmentError: departmentError,
+      imageError: imageError,
+      managerEmailError: managerEmailError,
+      oldInput: {
+        email: email,
+        name: name,
+        password: password,
+        doB: doB,
+        salaryScale: salaryScale,
+        startDate: startDate,
+        department: department,
+        managerEmail: managerEmail,
+      },
+      validationErrors: errors.array(),
+    });
+  }
+
   Staff.findOne({ email: email })
     .then((userDoc) => {
       if (userDoc) {
@@ -89,6 +169,7 @@ exports.postRegister = (req, res, next) => {
             department: department,
             salaryScale: salaryScale,
             image: image.path,
+            errorMessage: errors.array()[0].msg,
             state: false,
             role: role,
             manager: {

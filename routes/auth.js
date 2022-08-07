@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../controller/auth");
 const { check, body } = require("express-validator");
+const Staff = require("../models/staff");
 
 router.get("/", auth.getLogin);
 router.post(
@@ -22,12 +23,12 @@ router.post(
   [
     check("email")
       .isEmail()
-      .withMessage("Please enter a valid email.")
+      .withMessage("Email không hợp lệ.")
       .custom((value, { req }) => {
-        return User.findOne({ email: value }).then((userDoc) => {
-          if (userDoc) {
+        return Staff.findOne({ email: value }).then((staffDoc) => {
+          if (staffDoc) {
             return Promise.reject(
-              "Email đã tồn tại, Vui lòng chọn Email khác."
+              "Email đã tồn tại. Vui lòng chọn Email khác."
             );
           }
         });
@@ -37,6 +38,18 @@ router.post(
       .isLength({ min: 5 })
       .isAlphanumeric()
       .trim(),
+    body("name", "Họ tên phải có tối thiểu 3 ký tự.")
+      .isString()
+      .isLength({ min: 3 })
+      .trim(),
+    check("doB", "Ngày sinh không được để trống.").not().isEmpty(),
+    check("salaryScale", "Hệ số lương không được để trống.")
+      .not()
+      .isEmpty()
+      .isAlphanumeric(),
+    check("startDate", "Ngày vào công ty không được để trống.").not().isEmpty(),
+    check("department", "Phòng ban không được để trống.").not().isEmpty(),
+    check("managerEmail", "Email quản lý không được để trống.").not().isEmpty(),
   ],
   auth.postRegister
 );

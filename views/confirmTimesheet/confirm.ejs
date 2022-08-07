@@ -11,26 +11,28 @@
 
                 <div id="listStaff">
                     <h2>Danh sách nhân viên</h2>
-                    <table>
-                        <tr>
-                            <td>STT</td>
-                            <td>Tên</td>
-                            <td>Thông tin giờ làm</td>
-                        </tr>
-
-                        <%staffs.forEach(function(staff,index){%>
+                    <div style="overflow-x:auto;">
+                        <table>
                             <tr>
-                                <td>
-                                    <%= index+1%>
-                                </td>
-                                <td>
-                                    <%= staff.name%>
-                                </td>
-                                <td><a href="/confirmTimesheet/<%= staff.id%>">Xem</a></td>
+                                <td>STT</td>
+                                <td>Tên</td>
+                                <td>Thông tin giờ làm</td>
                             </tr>
-                            <%})%>
 
-                    </table>
+                            <%staffs.forEach(function(staff,index){%>
+                                <tr>
+                                    <td>
+                                        <%= index+1%>
+                                    </td>
+                                    <td>
+                                        <%= staff.name%>
+                                    </td>
+                                    <td><a href="/confirmTimesheet/<%= staff.id%>">Xem</a></td>
+                                </tr>
+                                <%})%>
+
+                        </table>
+                    </div>
                 </div>
 
                 <%- include('../includes/end.ejs') %>

@@ -6,46 +6,91 @@
 
     <body>
         <div class="container">
+
             <div class="wrap">
+
+                <h1 style="text-align: center;">
+                    Đăng ký tài khoản
+                </h1>
                 <form action="/register" class="info-form" method="POST" enctype="multipart/form-data">
                     <div class="form-control">
                         <label for="">Email</label>
-                        <input name="email"></input>
+                        <input name="email" value="<%= oldInput.email%>"></input>
+                        <%if(emailError){%>
+                            <p class="user-message--error">
+                                <%=emailError%>
+                            </p>
+                            <%}%>
                     </div>
                     <div class="form-control">
                         <label for="">Mật khẩu</label>
-                        <input name="password" type="password"></input>
+                        <input name="password" type="password" value="<%= oldInput.password%>"></input>
+                        <%if(passwordError){%>
+                            <p class="user-message--error">
+                                <%=passwordError%>
+                            </p>
+                            <%}%>
                     </div>
                     <div class="form-control">
                         <label for="title">Họ và tên</label>
-                        <input class="" type="text" name="name">
+                        <input class="" type="text" name="name" value="<%= oldInput.name%>">
+                        <%if(nameError){%>
+                            <p class="user-message--error">
+                                <%=nameError%>
+                            </p>
+                            <%}%>
                     </div>
                     <div class="form-control">
                         <label for="title">Ngày sinh</label>
-                        <input class="" type="date" name="doB">
+                        <input class="" type="date" name="doB" value="<%= oldInput.doB%>">
+                        <%if(doBlError){%>
+                            <p class="user-message--error">
+                                <%=doBlError%>
+                            </p>
+                            <%}%>
                     </div>
                     <div class="form-control">
                         <label for="title">Hệ số lương</label>
-                        <input class="" type="text" name="salaryScale">
+                        <input class="" type="text" name="salaryScale" value="<%= oldInput.salaryScale%>">
+                        <%if(salaryScaleError){%>
+                            <p class="user-message--error">
+                                <%=salaryScaleError%>
+                            </p>
+                            <%}%>
                     </div>
                     <div class="form-control">
                         <label for="title">Ngày vào công ty</label>
-                        <input class="" type="date" name="startDate">
+                        <input class="" type="date" name="startDate" value="<%= oldInput.startDate%>">
+                        <%if(startDateError){%>
+                            <p class="user-message--error">
+                                <%=startDateError%>
+                            </p>
+                            <%}%>
                     </div>
                     <div class="form-control">
                         <label for="title">Phòng ban</label>
-                        <input class="" type="text" name="department">
+                        <input class="" type="text" name="department" value="<%= oldInput.department%>">
+                        <%if(departmentError){%>
+                            <p class="user-message--error">
+                                <%=departmentError%>
+                            </p>
+                            <%}%>
                     </div>
                     <div class="form-control">
                         <label for="title">Role</label>
-                        <select name="role">
-                            <option value="Admin">Admin</option>
+                        <select name="role" class="select-role">
                             <option value="Basic">Basic</option>
+                            <option value="Admin">Admin</option>
                         </select>
                     </div>
                     <div class="form-control">
                         <label for="title">Email quản lý</label>
-                        <input class="" type="text" name="managerEmail">
+                        <input class="" type="text" name="managerEmail" value="<%= oldInput.managerEmail%>">
+                        <%if(managerEmailError){%>
+                            <p class="user-message--error">
+                                <%=managerEmailError%>
+                            </p>
+                            <%}%>
                     </div>
                     <div class="form-control">
                         <label for="image">Image</label>
@@ -54,6 +99,8 @@
                     <input type="hidden" name="_csrf" value="<%= csrfToken%>">
                     <button class="btn">Đăng ký</button>
                 </form>
+                <p class="info-form"><a href="/">Go to Login</a></p>
+
             </div>
 
         </div>

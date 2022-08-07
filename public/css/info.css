@@ -33,3 +33,8 @@ a{
     text-decoration: none;
     color:palevioletred;
 }
+
+.select-role{
+    width:50%;
+    padding:10px;
+}

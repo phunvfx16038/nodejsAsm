@@ -28,6 +28,7 @@
 
             .btn {
                 margin-top: 20px;
+                margin-bottom: 20px;
             }
         </style>
 
@@ -36,61 +37,63 @@
                 <%if(covid){%>
                     <div>
                         <h2>Thông tin Covid nhân viên</h2>
-                        <table>
-                            <tr>
-                                <td>Tên</td>
-                                <td>Nhiệt độ</td>
-                                <td>Ngày</td>
-                                <td>Mũi 1</td>
-                                <td>Ngày tiêm</td>
-                                <td>Mũi 2</td>
-                                <td>Ngày tiêm</td>
-                                <td>Mũi 3</td>
-                                <td>Ngày tiêm</td>
-                                <td>Nhiễm Covid</td>
-                            </tr>
-                            <% covid.forEach(function(item){%>
+                        <div style="overflow-x:auto;">
+                            <table>
                                 <tr>
-                                    <td>
-                                        <%=item.staff.name%>
-                                    </td>
-                                    <td>
-                                        <%=item.temp%>
-                                    </td>
-                                    <td>
-                                        <%=item.date%>
-                                    </td>
-                                    <td>
-                                        <%=item.vaccine[0].kindOfVaccine%>
-                                    </td>
-                                    <td>
-                                        <%=item.vaccine[0].date%>
-                                    </td>
-                                    <td>
-                                        <%=item.vaccine[1].kindOfVaccine%>
-                                    </td>
-                                    <td>
-                                        <%=item.vaccine[1].date%>
-                                    </td>
-                                    <td>
-                                        <%=item.vaccine[2].kindOfVaccine%>
-                                    </td>
-                                    <td>
-                                        <%=item.vaccine[2].date%>
-                                    </td>
-                                    <td>
-                                        <%if(item.isCovid){%>
-                                            <p> Đã nhiễm</p>
-                                            <%}else{%>
-                                                <p> Chưa nhiễm</p>
-                                                <%}%>
-                                    </td>
-                                    <td>
-                                        <a href="/covid/<%= item._id%>">PDF</a>
-                                    </td>
+                                    <td>Tên</td>
+                                    <td>Nhiệt độ</td>
+                                    <td>Ngày</td>
+                                    <td>Mũi 1</td>
+                                    <td>Ngày tiêm</td>
+                                    <td>Mũi 2</td>
+                                    <td>Ngày tiêm</td>
+                                    <td>Mũi 3</td>
+                                    <td>Ngày tiêm</td>
+                                    <td>Nhiễm Covid</td>
                                 </tr>
-                                <%})%>
-                        </table>
+                                <% covid.forEach(function(item){%>
+                                    <tr>
+                                        <td>
+                                            <%=item.staff.name%>
+                                        </td>
+                                        <td>
+                                            <%=item.temp%>
+                                        </td>
+                                        <td>
+                                            <%=item.date%>
+                                        </td>
+                                        <td>
+                                            <%=item.vaccine[0].kindOfVaccine%>
+                                        </td>
+                                        <td>
+                                            <%=item.vaccine[0].date%>
+                                        </td>
+                                        <td>
+                                            <%=item.vaccine[1].kindOfVaccine%>
+                                        </td>
+                                        <td>
+                                            <%=item.vaccine[1].date%>
+                                        </td>
+                                        <td>
+                                            <%=item.vaccine[2].kindOfVaccine%>
+                                        </td>
+                                        <td>
+                                            <%=item.vaccine[2].date%>
+                                        </td>
+                                        <td>
+                                            <%if(item.isCovid){%>
+                                                <p> Đã nhiễm</p>
+                                                <%}else{%>
+                                                    <p> Chưa nhiễm</p>
+                                                    <%}%>
+                                        </td>
+                                        <td>
+                                            <a href="/covid/<%= item._id%>">PDF</a>
+                                        </td>
+                                    </tr>
+                                    <%})%>
+                            </table>
+                        </div>
                     </div>
                     <%}%>
                         <div class="wrap">

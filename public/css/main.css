@@ -182,8 +182,6 @@
 }
 
 .user-message--error {
-  border-color: red;
-  background: rgb(255, 176, 176);
   color: red;
 }
 
@@ -207,29 +205,20 @@
   color: white;
 }
 /* responsive */
-@media screen and (max-width: 768px){
+@media screen and (max-width: 992px){
   .container{
       width: 90%;
       margin:0px 15px;
   }
-  /* .main-header__nav {
-    display: none;
-  }
-  #side-menu-toggle {
-    display: block;
-  } */
   select{
     margin-top:10px
   }
   .column{
     margin-left:10px;
   }
-  .user-message {
-    width: 30rem;
-  }
  
 }
-@media screen and (max-width: 640px){
+@media screen and (max-width: 600px){
     .container{
         width: 90%;
         margin:0px 15px;
@@ -256,4 +245,5 @@
       width:100%;
       margin-top:10px;
     }
+
 }

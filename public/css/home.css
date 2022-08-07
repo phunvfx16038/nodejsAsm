@@ -115,13 +115,16 @@
     cursor: pointer;
 }
 
-/* responsive */
-@media screen and (max-width: 768px){
-    .row{
-        flex-direction: column;
+@media screen and (max-width: 992px){
+    .modal-content{
+      width:80%;
+      height:250px;
     }
-}
-
-@media screen and (max-width: 320px){
-    
-}
+    #absent-modal>.modal-content{
+        height:auto;
+      }
+  }
+  @media screen and (max-width: 600px){
+     
+  
+  }
