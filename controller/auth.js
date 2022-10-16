@@ -1,7 +1,6 @@
 const Staff = require("../models/staff");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
-const { mongoose } = require("mongoose");
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash("error");
@@ -40,7 +39,7 @@ exports.postLogin = (req, res, next) => {
           if (doMatch) {
             req.session.isLoggin = true;
             req.session.staff = staff;
-            return req.session.save((err) => {
+            return req.session.save((result) => {
               res.redirect("/timesheet");
             });
           }
@@ -71,8 +70,6 @@ exports.getRegister = (req, res, next) => {
     salaryScaleError: "",
     startDateError: "",
     departmentError: "",
-    imageError: "",
-    managerEmailError: "",
     oldInput: {
       email: "",
       name: "",
@@ -81,7 +78,6 @@ exports.getRegister = (req, res, next) => {
       salaryScale: "",
       startDate: "",
       department: "",
-      managerEmail: "",
     },
   });
 };
@@ -94,13 +90,13 @@ exports.postRegister = (req, res, next) => {
   const salaryScale = req.body.salaryScale;
   const startDate = req.body.startDate;
   const department = req.body.department;
-  const image = req.file;
-  const managerEmail = req.body.managerEmail;
+  const managerEmail = "test1@gmail.com";
   const role = req.body.role;
 
   const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
+  if (errors.isEmpty()) {
+    console.log(errors.isEmpty());
     const errorArray = (param) => {
       const result = errors.array().filter((error) => {
         return error.param === param;
@@ -124,8 +120,6 @@ exports.postRegister = (req, res, next) => {
     const salaryScaleError = showErrorMsg("salaryScale");
     const startDateError = showErrorMsg("startDate");
     const departmentError = showErrorMsg("department");
-    const imageError = showErrorMsg("image");
-    const managerEmailError = showErrorMsg("managerEmail");
 
     return res.status(422).render("auth/register", {
       path: "/register",
@@ -137,8 +131,6 @@ exports.postRegister = (req, res, next) => {
       salaryScaleError: salaryScaleError,
       startDateError: startDateError,
       departmentError: departmentError,
-      imageError: imageError,
-      managerEmailError: managerEmailError,
       oldInput: {
         email: email,
         name: name,
@@ -147,19 +139,16 @@ exports.postRegister = (req, res, next) => {
         salaryScale: salaryScale,
         startDate: startDate,
         department: department,
-        managerEmail: managerEmail,
       },
       validationErrors: errors.array(),
     });
   }
 
-  Staff.findOne({ email: email })
-    .then((userDoc) => {
-      if (userDoc) {
-        return res.redirect("/");
-      }
-      return bcrypt.hash(password, 12).then((hashPassword) => {
-        Staff.findOne({ email: managerEmail }).then((manager) => {
+  bcrypt
+    .hash(password, 12)
+    .then((hashPassword) => {
+      Staff.findOne({ email: managerEmail })
+        .then((manager) => {
           const staff = new Staff({
             email: email,
             password: hashPassword,
@@ -168,21 +157,18 @@ exports.postRegister = (req, res, next) => {
             startDate: startDate,
             department: department,
             salaryScale: salaryScale,
-            image: image.path,
-            errorMessage: errors.array()[0].msg,
             state: false,
             role: role,
             manager: {
               name: manager.name,
-              managerId: mongoose.Types.ObjectId(manager._id),
+              managerId: manager._id,
             },
           });
-          staff.save();
+          return staff.save();
+        })
+        .then((result) => {
+          res.redirect("/");
         });
-      });
-    })
-    .then((result) => {
-      res.redirect("/");
     })
     .catch((err) => console.log(err));
 };

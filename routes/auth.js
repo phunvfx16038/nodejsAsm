@@ -49,7 +49,7 @@ router.post(
       .isAlphanumeric(),
     check("startDate", "Ngày vào công ty không được để trống.").not().isEmpty(),
     check("department", "Phòng ban không được để trống.").not().isEmpty(),
-    check("managerEmail", "Email quản lý không được để trống.").not().isEmpty(),
+    check("imageFile", "Hình ảnh không được để trống.").not().isEmpty(),
   ],
   auth.postRegister
 );

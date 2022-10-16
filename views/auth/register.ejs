@@ -6,7 +6,6 @@
 
     <body>
         <div class="container">
-
             <div class="wrap">
 
                 <h1 style="text-align: center;">
@@ -82,19 +81,6 @@
                             <option value="Basic">Basic</option>
                             <option value="Admin">Admin</option>
                         </select>
-                    </div>
-                    <div class="form-control">
-                        <label for="title">Email quản lý</label>
-                        <input class="" type="text" name="managerEmail" value="<%= oldInput.managerEmail%>">
-                        <%if(managerEmailError){%>
-                            <p class="user-message--error">
-                                <%=managerEmailError%>
-                            </p>
-                            <%}%>
-                    </div>
-                    <div class="form-control">
-                        <label for="image">Image</label>
-                        <input type="file" name="imageFile" id="image">
                     </div>
                     <input type="hidden" name="_csrf" value="<%= csrfToken%>">
                     <button class="btn">Đăng ký</button>

@@ -57,6 +57,7 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
+
 app.use(
   session({
     secret: "This is my secret code in asm project for nodejs course",
@@ -85,7 +86,7 @@ app.use((req, res, next) => {
   res.locals.csrfToken = req.csrfToken();
   next();
 });
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 // app.use(staffRoutes);
 app.use("/timesheet", timesheetRoute);
 app.use("/profile", profileRoute);
