@@ -86,7 +86,7 @@ app.use((req, res, next) => {
   res.locals.csrfToken = req.csrfToken();
   next();
 });
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 // app.use(staffRoutes);
 app.use("/timesheet", timesheetRoute);
 app.use("/profile", profileRoute);
